@@ -26,17 +26,17 @@
 <meta property="og:site_name" content="IukBlog">
 <meta property="og:description" content="TIMER-XL: LONG-CONTEXT TRANSFORMERS FOR UNIFIED TIME SERIES FORECASTING长上下文Transformer 统一的时间序列预测。 从题目入手：  长文本：NLP领域的Transformer学习成千上万的token间依赖，传统只能学几百个token。 统一预测：做出改变：1维的token 预测 下一个token 改成→ 2维的(多变量">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305012709401.png">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305012634197.png">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022448722.png">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022501776.png">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022518724.png">
-<meta property="og:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022531588.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305012709401.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305012634197.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305022448722.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305022501776.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305022518724.png">
+<meta property="og:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305022531588.png">
 <meta property="article:published_time" content="2025-03-04T17:12:51.000Z">
-<meta property="article:modified_time" content="2025-03-04T18:25:38.197Z">
+<meta property="article:modified_time" content="2025-03-04T18:34:26.416Z">
 <meta property="article:author" content="Iuk">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305012709401.png">
+<meta name="twitter:image" content="k:\MyWeb\source_posts\%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0\%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL\image-20250305012709401.png">
   
   
   
@@ -264,7 +264,7 @@
 <li>长文本：NLP领域的Transformer学习成千上万的token间依赖，传统只能学几百个token。</li>
 <li>统一预测：做出改变：1维的token 预测 下一个token 改成→ 2维的(多变量)。</li>
 </ul>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305012709401.png" srcset="/img/loading.gif" lazyload alt="image-20250305012709401"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305012709401.png" srcset="/img/loading.gif" lazyload alt="image-20250305012709401"></p>
 <p>图中介绍了何为token，以及不同模态（语言模型、视觉模型、时序模型）Transformer处理的上下文长度。</p>
 <p>总结本文做了两个工作：</p>
 <p>​	1.使用了NLP领域的Transformer应用到时序领域来，能处理更长的时间依赖；<br>​	2.在Transformer中包含了单变量、多变量（多目标变量&#x2F;多协变量+一目标变量）。</p>
@@ -279,7 +279,7 @@
 <blockquote>
 <p>其中TimeAttention中提到了：Kronecker-based mask 和 RoPE 两个技术。</p>
 </blockquote>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305012634197.png" srcset="/img/loading.gif" lazyload alt="image-20250305012634197"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305012634197.png" srcset="/img/loading.gif" lazyload alt="image-20250305012634197"></p>
 <p>此为模型结构图。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Time Series A &amp; B</span><br>时序A(蓝色)，时序B(黄色) 被分割成多个Patch Token，作为输入。<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Variable Dependency 变量依赖</span><br>变量A和B之间存在依赖关系，A的值受B影响，反之亦然(绿色箭头)。<br>依赖矩阵C记录了不同变量间的关联程度。<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">不同时序建模方式</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">(a) 单变量 Univariate</span><br>只考虑单个时间序列 + 时间掩码(确保只能看到过去的信息) + 没有跨变量依赖关系<br><span class="hljs-meta prompt_"># </span><span class="language-bash">(b) 多变量 Multivariate</span><br>处理多个时间序列 + 变量依赖矩阵C全为1(变量间存在相互影响) + 时间掩码T(因果)<br><span class="hljs-meta prompt_"># </span><span class="language-bash">(c) 带协变量 With Covariate B</span><br>A是目标变量，B是协变量 + C采用自定义依赖关系(A依赖A,B;B依赖B) + 时间掩码T(因果)<br></code></pre></td></tr></table></figure>
 
@@ -300,10 +300,10 @@
 <p>$d_k &#x3D; D&#x2F;head数量$ 缩放因子（D是隐藏层维度）</p>
 <h4 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h4><p>分别对：上下文长度、单变量预测、多变量预测、协变量预测、零样本做了对比实验。</p>
 <p>又对：模型效率进行了实验。</p>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022448722.png" srcset="/img/loading.gif" lazyload alt="image-20250305022448722"></p>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022501776.png" srcset="/img/loading.gif" lazyload alt="image-20250305022501776"></p>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022518724.png" srcset="/img/loading.gif" lazyload alt="image-20250305022518724"></p>
-<p><img src="C:\Users\iuk11\AppData\Roaming\Typora\typora-user-images\image-20250305022531588.png" srcset="/img/loading.gif" lazyload alt="image-20250305022531588"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305022448722.png" srcset="/img/loading.gif" lazyload alt="image-20250305022448722"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305022501776.png" srcset="/img/loading.gif" lazyload alt="image-20250305022501776"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305022518724.png" srcset="/img/loading.gif" lazyload alt="image-20250305022518724"></p>
+<p><img src="K:\MyWeb\source_posts\深度学习\组会分享TIMER-XL\image-20250305022531588.png" srcset="/img/loading.gif" lazyload alt="image-20250305022531588"></p>
 
                 
               </div>
