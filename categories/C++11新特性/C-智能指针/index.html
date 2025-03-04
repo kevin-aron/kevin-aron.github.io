@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://picx.zhimg.com/80/v2-3dc01c49b68a25febca39681a1fc9303_720w.png?source=d16d100b">
 <meta property="article:published_time" content="2025-03-03T19:01:25.000Z">
-<meta property="article:modified_time" content="2025-03-03T19:55:08.344Z">
+<meta property="article:modified_time" content="2025-03-04T16:33:49.498Z">
 <meta property="article:author" content="Iuk">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://picx.zhimg.com/80/v2-3dc01c49b68a25febca39681a1fc9303_720w.png?source=d16d100b">
@@ -311,8 +311,10 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">class</span> <span class="hljs-title">Boy</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setGirlFriend</span><span class="hljs-params">(shared_ptr&lt;Girl&gt; _girlFriend)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>-&gt;girlFriend = _girlFriend;<br>    &#125;<br>    shared_ptr&lt;Girl&gt; girlFriend;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">class</span> <span class="hljs-title">Girl</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setBoyFriend</span><span class="hljs-params">(shared_ptr&lt;Boy&gt; _boyFriend)</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>-&gt;boyFriend = _boyFriend;<br>    &#125;<br>    shared_ptr&lt;Boy&gt; boyFriend;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">useTrap</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-function">shared_ptr&lt;Boy&gt; <span class="hljs-title">spBoy</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Boy())</span></span>;<br>	<span class="hljs-function">shared_ptr&lt;Girl&gt; <span class="hljs-title">spGirl</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Girl())</span></span>;<br>	<span class="hljs-comment">// 陷阱用法</span><br>	<span class="hljs-comment">//spBoy-&gt;setGirlFriend(spGirl);</span><br>	spGirl-&gt;<span class="hljs-built_in">setBoyFriend</span>(spBoy);<br>	<span class="hljs-comment">// 此时boy和girl的引用计数都是2</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>解读：当useTrap()被调用，会初始化两个共享智能指针，spBoy指向Boy()内存，spGirl指向Girl()内存，然后进入交叉引用阶段，Boy()中有一个gF指针指向Girl()，Girl()中有一个bF指针指向Boy()。</p>
-<p><img src="https://picx.zhimg.com/80/v2-3dc01c49b68a25febca39681a1fc9303_720w.png?source=d16d100b" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>添加图片注释，不超过 140 字（可选）</p>
+<img src="https://picx.zhimg.com/80/v2-3dc01c49b68a25febca39681a1fc9303_720w.png?source=d16d100b" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+
+
 <p>可以使用weak_ptr避免这种情况的发生。</p>
 <h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>目的是为了配合shared_ptr而引用的一种智能指针来协助其工作的，它只可以从一个shared_ptr或者另一个weak_ptr对象构造，它的构造和析构不会引起计数的增加或减少。</p>
 <p>weak_ptr没有重载 * 和 -&gt;，但是可以使用lock获得一个可用的shared_ptr对象。</p>
@@ -517,7 +519,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <i class="icon-mail"> </i> <a> 联系方式：iuk0222@outlook.com </a> 
+       <a> 联系方式：iuk0222@outlook.com </a> 
     </div>
   
   
