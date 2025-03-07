@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://kevin-aron.github.io/%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL%5Cimage-20250305022518724.png">
 <meta property="og:image" content="https://kevin-aron.github.io/%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL%5Cimage-20250305022531588.png">
 <meta property="article:published_time" content="2025-03-04T17:12:51.000Z">
-<meta property="article:modified_time" content="2025-03-04T18:41:03.430Z">
+<meta property="article:modified_time" content="2025-03-05T16:07:18.907Z">
 <meta property="article:author" content="Iuk">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kevin-aron.github.io/%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL%5Cimage-20250305012709401.png">
@@ -290,14 +290,14 @@
 <p>其中，$R_{\theta}$ 是一个基于位置索引 $p$ 和一个预设的基数 $θ$ 生成的旋转矩阵。</p>
 <p>&#x3D;&#x3D;RoPE <strong>在注意力计算时，利用旋转变换引入相对位置信息，而不是直接添加位置编码</strong>。&#x3D;&#x3D;</p>
 <p><code>可学习的标量参数（Scalars）</code></p>
-<p>$Attention(Q,K,V)&#x3D;softmax(S_1⋅QK^T&#x2F;S_2·\sqrt(d))V$</p>
+<p>$Attention(Q,K,V)&#x3D;softmax(\frac{S_1⋅QK^T}{S_2·\sqrt{d}})V$</p>
 <p>在注意力机制中，每个注意力头（Attention Head）通常会处理不同的子空间信息。可以使用<strong>可学习的标量参数</strong>来调整不同变量的贡献。</p>
 <p><code>TimeAttention 计算公式</code></p>
-<p>$TimeAttention(H)&#x3D;Softmax(Mask(C⊗T)+A&#x2F;\sqrt(d_k))HW_v.$</p>
+<p>$TimeAttention(H)&#x3D;Softmax(\frac{Mask(C⊗T)+A}{\sqrt{d_k}})HW_v.$</p>
 <p>$Mask()$ 的作用 $M_{i,j} &#x3D; 1$ 该位置$&#x3D;0$；$M_{i,j} &#x3D; 0$ 该位置$&#x3D;-∞$。相当于做了一步它和邻接矩阵相加，更改邻接矩阵的步骤，算是一个小优化。</p>
 <p>$H$   特征矩阵</p>
 <p>$W_v$ 投影矩阵</p>
-<p>$d_k &#x3D; D&#x2F;head数量$ 缩放因子（D是隐藏层维度）</p>
+<p>$d_k &#x3D; \frac{D}{head数量}$ 缩放因子（D是隐藏层维度）</p>
 <h4 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h4><p>分别对：上下文长度、单变量预测、多变量预测、协变量预测、零样本做了对比实验。</p>
 <p>又对：模型效率进行了实验。</p>
 <p><img src="/%E7%BB%84%E4%BC%9A%E5%88%86%E4%BA%ABTIMER-XL%5Cimage-20250305022448722.png" srcset="/img/loading.gif" lazyload alt="image-20250305022448722"></p>
