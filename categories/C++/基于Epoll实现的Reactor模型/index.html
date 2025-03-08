@@ -19,19 +19,19 @@
   <meta name="author" content="Iuk">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基于epoll的Reactor网络模型epoll APIepoll_createepoll_create 用于创建一个 epoll 实例，返回一个 epoll 句柄（文件描述符 epfd），用于后续 epoll_ctl、epoll_wait 操作。 12345#include &lt;sys&#x2F;epoll.h&gt;&#x2F;&#x2F;旧版需要指定 size，但它的值不会影响 epoll 句柄的行为，通常填 1 即">
+    <meta name="description" content="基于epoll的Reactor网络模型Epoll APIepoll_createepoll_create 用于创建一个 epoll 实例，返回一个 epoll 句柄（文件描述符 epfd），用于后续 epoll_ctl、epoll_wait 操作。 12345#include &lt;sys&#x2F;epoll.h&gt;&#x2F;&#x2F;旧版需要指定 size，但它的值不会影响 epoll 句柄的行为，通常填 1 即">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Epoll实现的Reactor模型">
 <meta property="og:url" content="https://kevin-aron.github.io/categories/C++/%E5%9F%BA%E4%BA%8EEpoll%E5%AE%9E%E7%8E%B0%E7%9A%84Reactor%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="IukBlog">
-<meta property="og:description" content="基于epoll的Reactor网络模型epoll APIepoll_createepoll_create 用于创建一个 epoll 实例，返回一个 epoll 句柄（文件描述符 epfd），用于后续 epoll_ctl、epoll_wait 操作。 12345#include &lt;sys&#x2F;epoll.h&gt;&#x2F;&#x2F;旧版需要指定 size，但它的值不会影响 epoll 句柄的行为，通常填 1 即">
+<meta property="og:description" content="基于epoll的Reactor网络模型Epoll APIepoll_createepoll_create 用于创建一个 epoll 实例，返回一个 epoll 句柄（文件描述符 epfd），用于后续 epoll_ctl、epoll_wait 操作。 12345#include &lt;sys&#x2F;epoll.h&gt;&#x2F;&#x2F;旧版需要指定 size，但它的值不会影响 epoll 句柄的行为，通常填 1 即">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kevin-aron.github.io/source/images/Net/epoll_struct.jpeg">
+<meta property="og:image" content="https://kevin-aron.github.io/images/Net/epoll_struct.jpeg">
 <meta property="article:published_time" content="2025-03-07T08:48:07.000Z">
-<meta property="article:modified_time" content="2025-03-08T16:15:17.405Z">
+<meta property="article:modified_time" content="2025-03-08T16:20:31.366Z">
 <meta property="article:author" content="Iuk">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kevin-aron.github.io/source/images/Net/epoll_struct.jpeg">
+<meta name="twitter:image" content="https://kevin-aron.github.io/images/Net/epoll_struct.jpeg">
   
   
   
@@ -253,7 +253,7 @@
             
               <div class="markdown-body">
                 
-                <h3 id="基于epoll的Reactor网络模型"><a href="#基于epoll的Reactor网络模型" class="headerlink" title="基于epoll的Reactor网络模型"></a>基于epoll的Reactor网络模型</h3><h4 id="epoll-API"><a href="#epoll-API" class="headerlink" title="epoll API"></a>epoll API</h4><h5 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a>epoll_create</h5><p><code>epoll_create</code> 用于创建一个 <code>epoll</code> 实例，返回一个 <code>epoll</code> 句柄（文件描述符 <code>epfd</code>），用于后续 <code>epoll_ctl</code>、<code>epoll_wait</code> 操作。</p>
+                <h3 id="基于epoll的Reactor网络模型"><a href="#基于epoll的Reactor网络模型" class="headerlink" title="基于epoll的Reactor网络模型"></a>基于epoll的Reactor网络模型</h3><h4 id="Epoll-API"><a href="#Epoll-API" class="headerlink" title="Epoll API"></a>Epoll API</h4><h5 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a>epoll_create</h5><p><code>epoll_create</code> 用于创建一个 <code>epoll</code> 实例，返回一个 <code>epoll</code> 句柄（文件描述符 <code>epfd</code>），用于后续 <code>epoll_ctl</code>、<code>epoll_wait</code> 操作。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/epoll.h&gt;</span></span><br><span class="hljs-comment">//旧版需要指定 size，但它的值不会影响 epoll 句柄的行为，通常填 1 即可</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">epoll_create</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span></span>;   <br><span class="hljs-comment">//新版： 0：默认行为 ；EPOLL_CLOEXEC：创建的 epoll 句柄在 exec() 后会自动关闭</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">epoll_create1</span><span class="hljs-params">(<span class="hljs-type">int</span> flags)</span></span>;<br></code></pre></td></tr></table></figure>
 
 <p>创建成功后，<code>epfd</code> 就可以用于管理多个 <code>socket fd</code>。</p>
@@ -293,7 +293,7 @@
 <p>因为可以减少遍历的次数。从设计上，epoll**(struct eventpoll)<strong>会和其它socket</strong>(struct sock)**一样，内核会创建一个对应的结构体，位于内核态(kmalloc分配的内存区域)，与调用进程绑定，此时。这种设计模式下，我们不会再把对应的阻塞进程加入到socket的等待队列中，而是通过epoll_ctl先将所有需要管理的socket注册到epoll中，当有进程因为epoll_wait被阻塞，将其放入eventpoll的等待队列中。当socket的接收缓冲区接收到数据后，会产生中断，中断程序会：①将接收到数据的socket的fd放入rdlist中(减少了一次查询遍历)；②唤醒在等待队列中的进程，再次进入运行态(减少了一次访问socket中进程，再删除的遍历)。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">eventpoll</span> &#123;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">mutex</span> mtx;              <span class="hljs-comment">// 互斥锁，保护数据结构</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">rb_root_cached</span> rbr;     <span class="hljs-comment">// 红黑树，存储被监听的 fd</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">list_head</span> rdlist;       <span class="hljs-comment">// 就绪事件链表</span><br>    <span class="hljs-type">wait_queue_head_t</span> wq;          <span class="hljs-comment">// 等待队列</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">file</span> *file;             <span class="hljs-comment">// 关联的文件描述符</span><br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<p><img src="/source/images/Net/epoll_struct.jpeg" srcset="/img/loading.gif" lazyload alt="epoll原理详解及epoll反应堆模型"></p>
+<p><img src="/images/Net/epoll_struct.jpeg" srcset="/img/loading.gif" lazyload alt="epoll原理详解及epoll反应堆模型"></p>
 <p>就绪列表引用着就绪的socket，所以它应能够快速的插入数据。所以就绪列表应是一种能够快速插入和删除的数据结构。</p>
 <p>双向链表就是这样一种数据结构，epoll使用双向链表来实现就绪队列（对应上图的rdlist）。</p>
 <p>既然epoll将“维护监视队列”和“进程阻塞”分离，也意味着需要有个数据结构来保存监视的socket。至少要方便的添加和移除，还要便于搜索，以避免重复添加。红黑树是一种自平衡二叉查找树，搜索、插入和删除时间复杂度都是O(log(N))，效率较好。epoll使用了红黑树作为索引结构（对应上图的rbr）。</p>
